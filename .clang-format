@@ -1,0 +1,36 @@
+---
+Language: Cpp
+BasedOnStyle: Mozilla
+AccessModifierOffset: -1
+
+AlignOperands: Align
+BreakBeforeBinaryOperators: None
+ColumnLimit: 70
+# AlignArrayOfStructures: Left
+AllowShortLambdasOnASingleLine: Inline
+AlwaysBreakAfterDefinitionReturnType: None
+AlwaysBreakAfterReturnType: None
+BinPackParameters: true
+BitFieldColonSpacing: After
+BreakBeforeBraces: Mozilla
+BraceWrapping:
+  AfterControlStatement: Always
+  AfterNamespace: true
+  BeforeCatch: true
+  BeforeElse: true
+  SplitEmptyFunction: false
+BreakConstructorInitializers: AfterColon
+BreakInheritanceList: AfterColon
+BreakStringLiterals: false
+IndentGotoLabels: false
+IndentWidth: 3
+NamespaceIndentation: All
+PenaltyExcessCharacter: 1000
+PenaltyReturnTypeOnItsOwnLine: 1000000
+FixNamespaceComments: true
+ShortNamespaceLines: 18
+SpaceAfterLogicalNot: false
+SpaceBeforeCpp11BracedList: true
+# SpacesInAngles: Always
+Standard: c++17
+---
