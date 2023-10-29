@@ -1,0 +1,6 @@
+# Function
+-x_1 + x_2 + 3x_3 -> max
+# Constraints
+x_1 + x_2 - 3x_3 + x_4 = 7
+x_1 + 3x_2 + x_3 = 15
+x_1, x_2, x_3, x_4 >= 0
