@@ -1,20 +1,17 @@
 #include "function.hpp"
-#include <filesystem>
 #include <iostream>
 #include <string>
 
-static const std::filesystem::path tablePath = "char_table.txt";
+std::filesystem::path table_path = "table.txt";
 
 int main(int argc, char const* argv[])
 {
    bool noData = false;
-   Tokenizer t(tablePath);
-
+   SimplexMethodSolver s(table_path);
+   std::string desc_1 =
+     "1. Construct II phase function and first simplex tableau";
    if (argc == 1) {
-      std::cout << "Menu:\n"
-                << "\tPrint grammar table\n"
-                << "\tCheck input sequence in language\n"
-                << "Enter action number: ";
+      std::cout << desc_1 << "\nEnter task number to run: ";
       argc++;
       noData = true;
    }
@@ -29,13 +26,16 @@ int main(int argc, char const* argv[])
 
       switch (choice) {
          case 1:
-            std::cout << "Table:\n";
-            std::cout << t.getTable() << '\n';
+            std::cout << desc_1 << "\n";
+            std::cout << "function: " << s.getProccessedFunction()
+                      << '\n';
+            std::cout << "table:\n"
+                      << s.getSimplexTableuStr() << '\n';
             std::cout << "-----\n";
             break;
          default:
-            std::cerr << "ERROR: Incorrect action number (" << choice
-                      << ")!\n";
+            std::cerr
+              << "ERROR: Incorrect task number or task not exist\n";
             break;
       }
    }
