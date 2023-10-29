@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.11)
-project(ORM_4LW)
+project(ORM_3LW)
 
 if (NOT "$ENV{CMAKE_DEFAULT_INCLUDE_PATH}" STREQUAL "")
     set(CMAKE_DEFAULT_INCLUDE_PATH "$ENV{CMAKE_DEFAULT_INCLUDE_PATH}" CACHE INTERNAL "Path for external projects and dependencies")
