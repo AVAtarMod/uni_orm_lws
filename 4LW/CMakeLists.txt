@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.11)
-project(Template)
+project(ORM_4LW)
 
 if (NOT "$ENV{CMAKE_DEFAULT_INCLUDE_PATH}" STREQUAL "")
     set(CMAKE_DEFAULT_INCLUDE_PATH "$ENV{CMAKE_DEFAULT_INCLUDE_PATH}" CACHE INTERNAL "Path for external projects and dependencies")
@@ -38,3 +38,7 @@ file(GLOB_RECURSE data files/*)
 foreach(file ${data})
    configure_file(${file} . COPYONLY)
 endforeach()
+
+add_subdirectory(${CMAKE_DEFAULT_INCLUDE_PATH}/lib_simplex_io lib_simplex_io)
+target_include_directories(main PUBLIC ${CMAKE_DEFAULT_INCLUDE_PATH}/lib_simplex_io/include)
+target_link_libraries(main lib_simplex_io)
