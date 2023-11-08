@@ -4,7 +4,7 @@
 #include <iostream>
 #include <variant>
 
-using namespace lib_simplex_io;
+using namespace simplex_io;
 
 bool isValidLastConstraint(const ParsedConstraint& c)
 {

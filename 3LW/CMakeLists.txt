@@ -41,4 +41,4 @@ endforeach()
 
 add_subdirectory(${CMAKE_DEFAULT_INCLUDE_PATH}/lib_simplex_io lib_simplex_io)
 target_include_directories(main PUBLIC ${CMAKE_DEFAULT_INCLUDE_PATH}/lib_simplex_io/include)
-target_link_libraries(main lib_simplex_io)
+target_link_libraries(main simplex_io)
