@@ -35,7 +35,7 @@ SimplexMethodSolver::SimplexMethodSolver(
       {
          auto f = readFunction(in);
          if (f.success) {
-            input_function_ = f.function;
+            target_function_ = f.function;
             input_function_type_ = f.function_type;
          }
       }
