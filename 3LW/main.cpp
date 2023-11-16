@@ -8,6 +8,9 @@ int main(int argc, char const* argv[])
 {
    bool noData = false;
    SimplexMethodSolver s(table_path);
+
+   s.createSimplexTableu();
+
    std::string desc_1 =
      "1. Construct II phase function and first simplex tableau";
    if (argc == 1) {

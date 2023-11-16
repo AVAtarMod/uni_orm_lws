@@ -9,8 +9,6 @@ else()
 endif()
 
 set (CMAKE_CXX_STANDARD 17)
-set(RELEASE_FLAGS "-O3 -DNDEBUG")
-set(DEBUG_FLAGS "-g -DDEBUG")
 
 # Export no symbols by default (if the compiler supports it).
 # This makes e.g. GCC's "visibility behavior" consistent with MSVC's. 
@@ -20,11 +18,6 @@ set(CMAKE_CXX_VISIBILITY_PRESET hidden)
 
 set(CMAKE_CXX_FLAGS_RELEASE ${RELEASE_FLAGS})
 set(CMAKE_C_FLAGS_RELEASE ${RELEASE_FLAGS})
-
-set(CMAKE_CXX_FLAGS_DEBUG ${DEBUG_FLAGS})
-set(CMAKE_C_FLAGS_DEBUG ${DEBUG_FLAGS})
-
-# Always include the source and build directories in the include path.
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
 file(TO_NATIVE_PATH ${SOURCE_DIR}/files assetsdir)

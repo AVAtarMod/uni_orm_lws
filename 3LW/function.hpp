@@ -12,6 +12,7 @@ class SimplexMethodSolver
 {
   public:
    SimplexMethodSolver(const std::filesystem::path& tablePath);
+   void createSimplexTableu();
    std::string getSimplexTableuStr();
    std::string getProccessedFunction();
    void doNextStep();
