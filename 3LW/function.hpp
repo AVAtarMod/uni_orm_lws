@@ -7,28 +7,35 @@
 
 #include "simplex_io/read_data.hpp"
 #include "simplex_io/write_data.hpp"
+#include "simplex_io/conversion.hpp"
+
+struct SimplexMethodStatus
+{
+	bool is_end, is_infinity;
+};
+struct SimplexMethodAnswer
+{
+	float value;
+	std::vector<float> point;
+	bool is_valid, is_infinity;
+};
 
 class SimplexMethodSolver
 {
-  public:
-   SimplexMethodSolver(const std::filesystem::path& tablePath);
-   void createSimplexTableu();
-   std::string getSimplexTableuStr();
-   std::string getProccessedFunction();
-   void doNextStep();
-   void solve();
-   ~SimplexMethodSolver() {}
+public:
+	SimplexMethodSolver(const std::filesystem::path& tablePath);
+	std::string getSimplexTableuStr();
+	std::string getProccessedFunction();
+	SimplexMethodStatus doNextStep();
+	SimplexMethodAnswer solve();
+	~SimplexMethodSolver() {}
 
-  private:
-   typedef std::vector<std::pair<std::string, float>> function_repr;
-   typedef std::vector<
-     std::pair<std::vector<float>, simplex_io::ConstraintType>>
-     constraints_repr;
+private:
+	simplex_io::FunctionBase target_function_;
+	simplex_io::Problem p;
+	simplex_io::SimplexTableau simplex_tableu_;
 
-   function_repr target_function_;
-   constraints_repr constraints_;
-   std::vector<std::vector<float>> simplex_tableu_;
-   simplex_io::MinMaxType input_function_type_;
+	void createSimplexTableu(const std::vector<size_t>& basis_var_ind);
 };
 
 #endif // FUNCTION_HPP

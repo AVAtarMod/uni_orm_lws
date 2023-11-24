@@ -2,14 +2,17 @@
 #include <iostream>
 #include <string>
 
-std::filesystem::path table_path = "table.txt";
+std::filesystem::path table_path = "table1.txt";
 
 int main(int argc, char const* argv[])
 {
    bool noData = false;
    SimplexMethodSolver s(table_path);
-
-   s.createSimplexTableu();
+   auto a = s.solve();
+   std::cout << a.value << std::endl;
+   for (int i = 0; i < a.point.size(); i++)
+       std::cout << a.point[i] << ' ';
+   std::cout << std::endl;
 
    std::string desc_1 =
      "1. Construct II phase function and first simplex tableau";
