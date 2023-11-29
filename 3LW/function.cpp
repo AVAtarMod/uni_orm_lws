@@ -54,6 +54,18 @@ SimplexMethodSolver::SimplexMethodSolver(
                 }
             }
         }
+
+        size_t size = p.function.function.size(), size_i;
+        for (int i = 0; i < p.constraints.size(); i++)
+            if (p.constraints[i].constraint.size() > size)
+                size = p.constraints[i].constraint.size();
+        for (int i = 0; i < p.constraints.size(); i++) {
+            size_i = p.constraints[i].constraint.size();
+            p.constraints[i].constraint.resize(size, 0.);
+            std::swap(p.constraints[i].constraint[size - 1],
+                p.constraints[i].constraint[size_i - 1]);
+        }
+
         p = convertToCanonical(p);
         if (isCanonicalProblem(p))
             createSimplexTableu(getBasisVariablesVector(p));
@@ -68,25 +80,20 @@ void SimplexMethodSolver::createSimplexTableu(
     const std::vector<size_t>& basis_var_ind)
 {
     simplex_tableu_.basis_variables_indexes = basis_var_ind;
-    size_t size = target_function_.function.size();
-    for (int i = 0; i < p.constraints.size(); i++)
-        if (p.constraints[i].constraint.size() > size)
-            size = p.constraints[i].constraint.size();
+    size_t size = p.constraints[0].constraint.size();
 
     simplex_tableu_.table.resize(p.constraints.size() + 1);
     for (int i = 0; i < simplex_tableu_.table.size() - 1; i++) {
-        simplex_tableu_.table[i].resize(size, 0.f);
-        for (int j = 0; j < p.constraints[i].constraint.size() - 1; j++)
+        simplex_tableu_.table[i].resize(size);
+        for (int j = 0; j < size; j++)
             simplex_tableu_.table[i][j] = p.constraints[i].constraint[j];
-        simplex_tableu_.table[i][size - 1] =
-            *p.constraints[i].constraint.rbegin();
     }
-
     simplex_tableu_.table[simplex_tableu_.table.size() - 1].resize(
-        size);
-    for (int j = 0; j < target_function_.function.size(); j++)
+        size, 0.);
+
+    for (int j = 0; j < p.function.function.size(); j++)
         simplex_tableu_.table[simplex_tableu_.table.size() - 1][j] =
-        target_function_.function[j].second;
+        p.function.function[j].second;
 
     simplex_tableu_
         .table[simplex_tableu_.table.size() - 1][size - 1] *= -1;
@@ -178,10 +185,9 @@ SimplexMethodStatus SimplexMethodSolver::doNextStep()
 SimplexMethodAnswer SimplexMethodSolver::solve()
 {
     SimplexMethodStatus st{ false, false };
-    std::cout << simplex_tableu_ << std::endl;
     while (!st.is_end) {
-        st = doNextStep();
         std::cout << simplex_tableu_ << std::endl;
+        st = doNextStep();
     }
     if (st.is_infinity)
         return { 0.f, std::vector<float>(), true, true };

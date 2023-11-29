@@ -13,7 +13,7 @@ int main(int argc, char const* argv[])
    for (int i = 0; i < a.point.size(); i++)
        std::cout << a.point[i] << ' ';
    std::cout << std::endl;
-
+   /*
    std::string desc_1 =
      "1. Construct II phase function and first simplex tableau";
    if (argc == 1) {
@@ -44,6 +44,6 @@ int main(int argc, char const* argv[])
               << "ERROR: Incorrect task number or task not exist\n";
             break;
       }
-   }
+   }*/
    return 0;
 }
