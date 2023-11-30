@@ -107,6 +107,7 @@ void SimplexMethodSolver::createSimplexTableu(
       for (int j = 0; j < size; j++)
          simplex_tableu_.table[ii][j] /= coef1;
 
+      coef1 = simplex_tableu_.table[ii][c[ii]];
       coef2 = simplex_tableu_.table[c.size()][c[ii]];
       for (int j = 0; j < size; j++)
          simplex_tableu_.table[c.size()][j] -=
@@ -184,21 +185,26 @@ SimplexMethodStatus SimplexMethodSolver::doNextStep()
 SimplexMethodAnswer SimplexMethodSolver::solve()
 {
     SimplexMethodStatus st{ false, false };
-    while (!st.is_end) {
-        std::cout << simplex_tableu_ << std::endl;
-        st = doNextStep();
+    if (simplex_tableu_.table.size() != 0) {
+        while (!st.is_end) {
+            std::cout << simplex_tableu_ << std::endl;
+            st = doNextStep();
+        }
+        if (st.is_infinity)
+            return { 0.f, std::vector<float>(), true, true };
+        SimplexMethodAnswer ans{
+           0.f, std::vector<float>(simplex_tableu_.table[0].size() - 1, 0.f), true, false
+        };
+        int i;
+        for (i = 0; i < simplex_tableu_.basis_variables_indexes.size(); i++) {
+            ans.point[simplex_tableu_.basis_variables_indexes[i]] =
+                simplex_tableu_.table[i][ans.point.size()];
+        }
+        for (i = 0; i < target_function_.function.size(); i++)
+            ans.value += ans.point[i] * target_function_.function[i].second;
+        return ans;
     }
-    if (st.is_infinity)
-        return { 0.f, std::vector<float>(), true, true };
-    SimplexMethodAnswer ans{
-       0.f, std::vector<float>(simplex_tableu_.table[0].size() - 1, 0.f), true, false
+    return {
+           0.f, std::vector<float>(), false, false
     };
-    int i;
-    for (i = 0; i < simplex_tableu_.basis_variables_indexes.size(); i++) {
-        ans.point[simplex_tableu_.basis_variables_indexes[i]] =
-            simplex_tableu_.table[i][ans.point.size()];
-    }
-    for (i = 0; i < target_function_.function.size(); i++)
-        ans.value += ans.point[i] * target_function_.function[i].second;
-    return ans;
 }
